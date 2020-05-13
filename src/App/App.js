@@ -25,8 +25,14 @@ class App extends React.Component {
       <div className="App">
         <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
         <button className="btn btn-dark btn-lg m-3">Pick a Mushroom</button>
-        <Forest mushrooms={this.state.mushrooms} />
-        <Basket basket={this.state.basket} />
+        <div className="row">
+          <div className="col-6">
+            <Forest mushrooms={this.state.mushrooms} />
+          </div>
+          <div className="col-6">
+            <Basket basket={this.state.basket} />
+          </div>
+        </div>
       </div>
     );
   }

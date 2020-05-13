@@ -46,7 +46,7 @@ const mushrooms = [
   },
   { 
     id: 'mushroom6',
-    name: 'https://grocycle.com/wp-content/uploads/2019/04/Maitake-Mushrooms.jpg',
+    name: 'Maitake Mushrooms',
     description: 'Maitake mushrooms are also called hen-of-the-woods. Maitake means \'dancing mushroom\' in Japanese.These mushrooms are too tough to eat once they reach any reasonable size. However, they are used for their medicinal properties. Maitake mushrooms have been shown to boost the immune system. They also have a hypoglycemic effect that can help with lowering blood sugar and managing diabetes, and can also help with high cholesterol.',
     imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Maitake-Mushrooms.jpg',
     isMagic: false,
