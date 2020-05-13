@@ -3,13 +3,19 @@
 @import 'variables';
 
 body {
-  background-color: $favColor;
-  width: 90%;
+  background-color: $lightGreen;
+  width: 94%;
   margin: auto;
 }
 
 h1, h2 {
   color: white;
+}
+
+.container {
+  border: solid 5px $darkGreen;
+  width: 45%;
+  padding: 10px;
 }
 
 .description {

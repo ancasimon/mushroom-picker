@@ -13,12 +13,12 @@ class Mushroom extends React.Component {
     const { mushroom } = this.props;
 
     return (
-      <div class="flip-card">
-        <div class="flip-card-inner">
-          <div class="flip-card-front">
+      <div className="flip-card">
+        <div className="flip-card-inner">
+          <div className="flip-card-front">
             <img src={mushroom.imgUrl} className="card-img img-thumbnail mushroomPic" alt="Mushroom pic" />
           </div>
-          <div class="flip-card-back">
+          <div className="flip-card-back">
             <h5>{mushroom.name}</h5>
             <p className="description"><small>{mushroom.description}</small></p>
           </div>
