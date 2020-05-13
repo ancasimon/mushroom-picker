@@ -13,21 +13,20 @@ class Mushroom extends React.Component {
     const { mushroom } = this.props;
 
     return (
-      <div className="card mb-3">
-        <div className="row no-gutters">
-          <div className="col-md-4">
-            <img src={mushroom.imgUrl} className="card-img" alt="Mushroom pic" />
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <img src={mushroom.imgUrl} className="card-img img-thumbnail mushroomPic" alt="Mushroom pic" />
           </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">{mushroom.name}</h5>
-              <p className="card-text">{mushroom.description}</p>
-            </div>
+          <div class="flip-card-back">
+            <h5>{mushroom.name}</h5>
+            <p className="description"><small>{mushroom.description}</small></p>
           </div>
         </div>
       </div>
     );
   }
 }
+
 
 export default Mushroom;
