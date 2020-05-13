@@ -2,7 +2,7 @@ const mushrooms = [
   {
     id: 'mushroom1',
     name: 'Death Cap',
-    description: 'Perhaps the deadliest of all mushrooms, the death cap is found throughout Europe and closely resembles edible straw mushrooms and caesar’s mushrooms. Its heat-stable amatoxins withstand cooking temperatures and quickly damage cells throughout the body. Within 6 to 12 hours after consumption, violent abdominal pain, vomiting, and bloody diarrhea appear, causing rapid loss of fluid from the tissues and intense thirst. Signs of severe involvement of the liver, kidneys, and central nervous system soon follow, including a decrease in urinary output and a lowering of blood sugar. This condition leads to coma and death in more than 50 percent of the incidents.',
+    description: 'Perhaps the deadliest of all mushrooms, the death cap is found throughout Europe and closely resembles edible straw mushrooms and caesar’s mushrooms. Its heat-stable amatoxins withstand cooking temperatures and quickly damage cells throughout the body. Within 6 to 12 hours after consumption, violent abdominal pain, vomiting, and bloody diarrhea appear, causing rapid loss of fluid from the tissues and intense thirst. Signs of severe involvement of the liver, kidneys, and central nervous system soon follow. This condition leads to coma and death in more than 50 percent of the incidents.',
     imgUrl: 'https://cdn.britannica.com/s:800x1000/79/145379-050-4461FF66/Death-cap-mushroom.jpg',
     isMagic: false,
     isPoisonous: false,

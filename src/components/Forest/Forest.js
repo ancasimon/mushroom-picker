@@ -18,9 +18,11 @@ class Forest extends React.Component {
     ));
 
     return (
-      <div className="Forest d-flex flex-wrap">
+      <div className="Forest">
         <h2>Our Forest</h2>
-        {buildForest}
+          <div className="Forest d-flex flex-wrap">
+            {buildForest}
+          </div>
       </div>
     );
   }
