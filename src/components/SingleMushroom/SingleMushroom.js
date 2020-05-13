@@ -10,7 +10,7 @@ class Mushroom extends React.Component {
       <div className="card mb-3">
         <div className="row no-gutters">
           <div className="col-md-4">
-            <img src={mushroom.imgUrl} class="card-img" alt="Mushroom pic" />
+            <img src={mushroom.imgUrl} className="card-img" alt="Mushroom pic" />
           </div>
           <div className="col-md-8">
             <div className="card-body">
