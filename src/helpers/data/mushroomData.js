@@ -1,5 +1,3 @@
-import ReactDOM from 'react-dom';
-
 const mushrooms = [
   {
     id: 'mushroom1',
@@ -10,7 +8,7 @@ const mushrooms = [
     isPoisonous: false,
     isDeadly: true,
   },
-  { 
+  {
     id: 'mushroom2',
     name: 'Deadly Dapperling',
     description: 'The deadly dapperling is a gilled mushroom known to contain amatoxins. Widely distributed throughout Europe and parts of Asia, the mushroom is fairly innocuous and has been mistaken for edible varieties, though poisonings are not very common. Accidental consumption leads to severe liver toxicity and can have lethal consequences if immediate treatment is not received.',
@@ -28,7 +26,7 @@ const mushrooms = [
     isPoisonous: true,
     isDeadly: false,
   },
-  { 
+  {
     id: 'mushroom4',
     name: 'Webcaps',
     description: 'The two species of webcap, the deadly webcap (Cortinarius rubellus) and the fool’s webcap (Cortinarius orellanus), are very similar in appearance to both each other and to a number of edible varieties. These mushrooms feature a poison known as orellanin, which initially causes symptoms similar to the common flu. Orellanin has an insidiously long latency period and may take 2 days to 3 weeks to cause symptoms, often leading to a misdiagnosis. The toxin ultimately causes kidney failure and death if left untreated.',
@@ -37,7 +35,7 @@ const mushrooms = [
     isPoisonous: true,
     isDeadly: false,
   },
-  { 
+  {
     id: 'mushroom5',
     name: 'Reishi Mushrooms',
     description: 'The reishi or lingzhi mushroom is often considered the gold standard when it comes to medicinal mushrooms. It is a polypore, which means it is a tough cork-like mushroom that grows on the side of trees and is to tough to eat. Not all effects of reishi mushrooms have been scientifically tested, but some purported uses include treating fatigue, lowering cholesterol, boosting the immune system (even sometimes claimed to be able to fight HIV and AIDs), lowering blood pressure and inflammation, and to treat lower urinary tract symptoms.',
@@ -46,7 +44,7 @@ const mushrooms = [
     isPoisonous: false,
     isDeadly: false,
   },
-  { 
+  {
     id: 'mushroom6',
     name: 'Maitake Mushrooms',
     description: 'Maitake mushrooms are also called hen-of-the-woods. Maitake means \'dancing mushroom\' in Japanese.These mushrooms are too tough to eat once they reach any reasonable size. However, they are used for their medicinal properties. Maitake mushrooms have been shown to boost the immune system. They also have a hypoglycemic effect that can help with lowering blood sugar and managing diabetes, and can also help with high cholesterol.',
@@ -215,10 +213,26 @@ const fillBasketMagically = () => {
   return basket;
 };
 
+const addMushroomCount = (mushroomId) => {
+  const selectedMushroom = mushrooms.find(mushroomId);
+  console.error('selected mushroom that has same id in array', selectedMushroom);
+  selectedMushroom.name += 1;
+  console.error('updated name', selectedMushroom.name);
+};
+
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const selectedMushroom = mushrooms[randomNum];
   console.error('selected mushroom', selectedMushroom);
+  console.error('selected mushroom ID', selectedMushroom.id);
+  console.error('current basket after selecting another mushroom', basket);
+  // const sameMushroomInBasket = basket.find(selectedMushroom.id);
+  // console.error('FOUND!!!!', sameMushroomInBasket);
+  // if (basket.find(selectedMushroom.id)) {
+  //   // const firstMushroomOfItsType = basket.findIndex(selectedMushroom.id);
+  //   console.error('found an existing mushroom already');
+  //   // addMushroomCount(firstMushroomOfItsType.id);
+  // } else
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
   } else if (selectedMushroom.isDeadly === true) {
@@ -226,6 +240,11 @@ const pickAMushroom = () => {
   } else if (selectedMushroom.isMagic === true) {
     fillBasketMagically();
   } else {
+    // for (let i = 0; i < basket.length; i + 1) {
+    //   if (basket[i].id === selectedMushroom.id) {
+    //     console.error('FOUND IT!!!!! FOR REAL!!!');
+    //   }
+    // }
     basket.push(selectedMushroom);
   }
 };
