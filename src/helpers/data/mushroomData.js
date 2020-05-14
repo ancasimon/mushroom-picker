@@ -1,4 +1,4 @@
-const mushrooms = [
+let mushrooms = [
   {
     id: 'mushroom1',
     name: 'Death Cap',
@@ -207,6 +207,19 @@ const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
 
+const getAllRegularMushrooms = () => {
+  console.error('reg mush func running');
+  const regularMushrooms = [];
+  mushrooms = getMushrooms();
+  for (let i = 0; i < mushrooms.length; i += 1) {
+    if (mushrooms[i].isDeadly === false && mushrooms[i].isPoisonous === false && mushrooms[i].isMagic === false) {
+      regularMushrooms.push(mushrooms[i]);
+    }
+  }
+  return regularMushrooms;
+  console.error('array of regular mushrooms!!!', regularMushrooms);
+};
+
 const removeTwoMushrooms = () => {
   basket = getBasket();
   const removedMushroom1 = basket.shift();
@@ -265,19 +278,23 @@ const addNewMushroom = (selectedMushroom) => {
   console.error('updated basket after adding a new mushroom', basket);
 };
 
-const checkForFullBasket = () => {
-  basket = getBasket();
-
+const getMushroomId = (mushroom) => {
+  const mushroomId = mushroom.id;
 };
 
-const getAllRegularMushrooms = () => {
-  const regularMushrooms = [];
-  for (let i = 0; i < mushrooms.length; i += 1) {
-    if (mushrooms[i].isDeadly !== false && mushrooms[i].isPoisonous !== false && mushrooms[i].isMagic !== false) {
-      regularMushrooms.push(mushrooms[i]);
-      console.error('array of regular mushrooms!!!', regularMushrooms);
-    }
-  }
+const checkForFullBasket = () => {
+  basket = getBasket();
+  const regularMushrooms = getAllRegularMushrooms();
+  const regularMushroomsIds = Object.values(regularMushrooms);
+  // Object.keys(regularMushrooms).forEach((mushroom) => {
+  //   regularMushrooms[mushroom].id = mushroom;
+  //   regularMushroomsIds.push(regularMushrooms[mushroom]);
+  // });
+  console.error('array of ids???', regularMushroomsIds);
+  const sortedBasket = basket.sort((a, b) => ((a.id > b.id) ? 1 : -1));
+  console.error('sorted Basket', sortedBasket);
+  const sortedRegMushrooms = regularMushrooms.sort((a, b) => ((a.id > b.id) ? 1 : -1));
+  console.error('sorted reg mushrooms', sortedRegMushrooms);
 };
 
 const pickAMushroom = () => {
@@ -292,8 +309,9 @@ const pickAMushroom = () => {
   } else {
     // basket.push(selectedMushroom);
     checkForDuplicates(selectedMushroom) ? (console.error('found a duplicate!')) : (addNewMushroom(selectedMushroom));
-    getAllRegularMushrooms();
   }
+  getAllRegularMushrooms();
+  checkForFullBasket();
 };
 
 // Anca: Notes about how I check for duplicates:
