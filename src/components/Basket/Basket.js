@@ -12,7 +12,6 @@ class Basket extends React.Component {
 
   render() {
     const { basket } = this.props;
-    console.error('anything in basket??', basket);
     const buildBasket = basket.map((mushroom) => (
       <Mushroom key={mushroom.id} mushroom={mushroom} />
     ));

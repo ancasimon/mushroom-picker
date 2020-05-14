@@ -192,21 +192,27 @@ const removeTwoMushrooms = () => {
   const removedMushroom1 = basket.shift();
   const removedMushroom2 = basket.shift();
   console.error('mushrooms removed', removedMushroom1, removedMushroom2);
+  alert('You just picked a poisonous mushroom! We will take the first 2 mushrooms in your basket!');
   return basket;
+};
+
+const emptyBasket = () => {
+  // basket = getBasket();
+  basket = [];
+  alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
 };
 
 const pickAMushroom = (mushroomId) => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
-  console.error('random number', randomNum);
   const selectedMushroom = mushrooms[randomNum];
   console.error('selected mushroom', selectedMushroom);
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
-    console.error('poison - removing 2 mushrooms!!');
+  } else if (selectedMushroom.isDeadly === true) {
+    emptyBasket();
   } else {
     basket.push(selectedMushroom);
   }
-  console.error('basket after new mushroom picked', basket);
 };
 
 export default { getMushrooms, getBasket, pickAMushroom };

@@ -17,7 +17,6 @@ class App extends React.Component {
 
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
-    console.error('mushrooms', mushrooms);
     const basket = mushroomData.getBasket();
     console.error('basket', basket);
     this.setState({ mushrooms, basket });
