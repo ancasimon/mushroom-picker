@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 const mushrooms = [
   {
     id: 'mushroom1',
@@ -197,12 +199,23 @@ const removeTwoMushrooms = () => {
 };
 
 const emptyBasket = () => {
-  // basket = getBasket();
+  basket = getBasket();
   basket = [];
   alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
 };
 
-const pickAMushroom = (mushroomId) => {
+const fillBasketMagically = () => {
+  alert('You hit the jackpot!');
+  for (let i = 0; i < mushrooms.length; i += 1) {
+    if (mushrooms[i].isDeadly === false && mushrooms[i].isPoisonous === false && mushrooms[i].isMagic === false) {
+      basket.push(mushrooms[i]);
+    }
+  }
+  console.error('full basket!!', basket);
+  return basket;
+};
+
+const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const selectedMushroom = mushrooms[randomNum];
   console.error('selected mushroom', selectedMushroom);
@@ -210,6 +223,8 @@ const pickAMushroom = (mushroomId) => {
     removeTwoMushrooms();
   } else if (selectedMushroom.isDeadly === true) {
     emptyBasket();
+  } else if (selectedMushroom.isMagic === true) {
+    fillBasketMagically();
   } else {
     basket.push(selectedMushroom);
   }

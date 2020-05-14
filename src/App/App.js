@@ -22,24 +22,18 @@ class App extends React.Component {
     this.setState({ mushrooms, basket });
   }
 
-  pickAMushroom = (mushroomId) => {
-    mushroomData.pickAMushroom(mushroomId);
+  pickAMushroom = (e) => {
+    e.preventDefault();
+    mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
     this.setState({ basket });
-  }
-
-  pickAMushroomEvent = (e) => {
-    e.preventDefault();
-    const pickAMushroom = this.pickAMushroom();
-    const { mushroom } = this.state.mushroom;
-    // pickAMushroom(mushroom.id); QUESTION: Do I not need this line?? How come it works without it???
   }
 
   render() {
     return (
       <div className="App">
         <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
-        <button className="btn btn-dark btn-lg m-3" onClick={this.pickAMushroomEvent}>Pick a Mushroom</button>
+        <button className="btn btn-dark btn-lg m-3" onClick={this.pickAMushroom}>Pick a Mushroom</button>
         <div className="row">
           <div className="container">
             <Forest mushrooms={this.state.mushrooms} />
