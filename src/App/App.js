@@ -13,13 +13,20 @@ class App extends React.Component {
     mushrooms: [],
     basket: [],
     mushroom: mushroomShape.mushroomShape,
+    fullBasket: false,
   }
+  // Anca note: Maybe try and use a rpoperty of fullBasket to control whether the application has the fun animation or not!!??
 
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
     const basket = mushroomData.getBasket();
     console.error('basket', basket);
     this.setState({ mushrooms, basket });
+  }
+
+  rewardFullBasket = (e) => {
+    e.preventDefault();
+    this.setState({ fullBasket: true });
   }
 
   pickAMushroom = (e) => {
@@ -30,6 +37,7 @@ class App extends React.Component {
   }
 
   render() {
+    const fullBasket = this.state.fullBasket;
     return (
       <div className="App">
         <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
