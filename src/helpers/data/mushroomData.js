@@ -7,6 +7,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: true,
+    count: 0,
   },
   {
     id: 'mushroom2',
@@ -16,6 +17,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: true,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom3',
@@ -25,6 +27,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: true,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom4',
@@ -34,6 +37,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: true,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom5',
@@ -43,6 +47,7 @@ const mushrooms = [
     isMagic: true,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom6',
@@ -52,6 +57,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom7',
@@ -61,6 +67,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom8',
@@ -70,6 +77,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom9',
@@ -79,6 +87,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom10',
@@ -88,6 +97,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom11',
@@ -97,6 +107,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom12',
@@ -106,6 +117,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom13',
@@ -115,6 +127,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom14',
@@ -124,6 +137,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom15',
@@ -133,6 +147,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom16',
@@ -142,6 +157,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom17',
@@ -151,6 +167,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom18',
@@ -160,6 +177,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom19',
@@ -169,6 +187,7 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
   {
     id: 'mushroom20',
@@ -178,10 +197,32 @@ const mushrooms = [
     isMagic: false,
     isPoisonous: false,
     isDeadly: false,
+    count: 0,
   },
 ];
 
-let basket = [];
+let basket = [
+  {
+    id: 'mushroom19',
+    name: 'Portobello Mushrooms',
+    description: 'Portobellos are the final full-grown stage of the button mushroom\'s life. These mushrooms are much larger than cremini or button mushrooms and have a more meaty texture, but still retain a mild flavor. They have their cap fully open, exposing the dark gills underneath. Portobellos are large enough to be used as vegetarian burgers or stuffed with other ingredients, and are often baked instead of fried.',
+    imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Portobello-Mushrooms.jpg',
+    isMagic: false,
+    isPoisonous: false,
+    isDeadly: false,
+    count: 1,
+  },
+  {
+    id: 'mushroom20',
+    name: 'Cremini Mushrooms',
+    description: 'Cremini mushrooms, also called crimini mushrooms, are actually part of the same ​species as button mushrooms (Agaricus bisporus), but are a brown variation with a slightly deeper flavour. ​All button mushrooms ​used to be brown until 1926, when a mushroom farmer in Pennsylvania found a cluster of white buttons growing in his beds, which he cloned and began selling as a new variety​.',
+    imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Cremini-Mushrooms.jpg',
+    isMagic: false,
+    isPoisonous: false,
+    isDeadly: false,
+    count: 1,
+  },
+];
 
 const getMushrooms = () => mushrooms;
 
@@ -204,35 +245,50 @@ const emptyBasket = () => {
 
 const fillBasketMagically = () => {
   alert('You hit the jackpot!');
+  console.error('JACKPOT!!!!!');
   for (let i = 0; i < mushrooms.length; i += 1) {
     if (mushrooms[i].isDeadly === false && mushrooms[i].isPoisonous === false && mushrooms[i].isMagic === false) {
-      basket.push(mushrooms[i]);
+      // basket.push(mushrooms[i]);
+      checkForDuplicates(mushrooms[i]) ? (console.error('found a duplicate!', mushrooms[i].name)) : (addNewMushroom(mushrooms[i]));
+      console.error('checking if each regular mushroom already has duplicates in the current basket');
     }
   }
   console.error('full basket!!', basket);
   return basket;
 };
 
-const addMushroomCount = (mushroomId) => {
-  const selectedMushroom = mushrooms.find(mushroomId);
-  console.error('selected mushroom that has same id in array', selectedMushroom);
-  selectedMushroom.name += 1;
-  console.error('updated name', selectedMushroom.name);
+const checkForDuplicates = (selectedMushroom) => {
+  basket = getBasket();
+  console.error('sel mush in the check function', selectedMushroom);
+  for (let i = 0; i < basket.length; i += 1) {
+    if (basket[i].id === selectedMushroom.id) {
+      const currentDuplicate = basket[i];
+      console.error('duplicate we found', currentDuplicate);
+      currentDuplicate.count += 1;
+      console.error('duplicate count increased!!', basket[i].name, basket[i].count);
+      console.error('updated basked after updating count of existing mushroom - NO NEW MUSHROOMS ADDED', basket);
+      // const index = basket.findIndex(basket[i]);
+      // console.error('index of duplicate in current basket array', index);
+      return true;
+    }
+  }
+};
+
+// const updateCurrentMushroom = (currentMushroom) => {
+//   currentMushroom.count += 1;
+// };
+
+const addNewMushroom = (selectedMushroom) => {
+  // eslint-disable-next-line no-param-reassign
+  selectedMushroom.count += 1;
+  basket.push(selectedMushroom);
+  console.error('new mushroom with updated count', selectedMushroom);
+  console.error('updated basket after adding a new mushroom', basket);
 };
 
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const selectedMushroom = mushrooms[randomNum];
-  console.error('selected mushroom', selectedMushroom);
-  console.error('selected mushroom ID', selectedMushroom.id);
-  console.error('current basket after selecting another mushroom', basket);
-  // const sameMushroomInBasket = basket.find(selectedMushroom.id);
-  // console.error('FOUND!!!!', sameMushroomInBasket);
-  // if (basket.find(selectedMushroom.id)) {
-  //   // const firstMushroomOfItsType = basket.findIndex(selectedMushroom.id);
-  //   console.error('found an existing mushroom already');
-  //   // addMushroomCount(firstMushroomOfItsType.id);
-  // } else
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
   } else if (selectedMushroom.isDeadly === true) {
@@ -240,13 +296,16 @@ const pickAMushroom = () => {
   } else if (selectedMushroom.isMagic === true) {
     fillBasketMagically();
   } else {
-    // for (let i = 0; i < basket.length; i + 1) {
-    //   if (basket[i].id === selectedMushroom.id) {
-    //     console.error('FOUND IT!!!!! FOR REAL!!!');
-    //   }
-    // }
-    basket.push(selectedMushroom);
+    // basket.push(selectedMushroom);
+    checkForDuplicates(selectedMushroom) ? (console.error('found a duplicate!')) : (addNewMushroom(selectedMushroom));
   }
 };
+
+// Anca: Notes about how I check for duplicates:
+// 1 - If the mushroom selected is not deadly/poisonous/magic, then we run the checkForDuplicates function.
+// 2 - A - If the checkForDuplicates function returns true, we leave it be and don't do anything else. Because when true, this function already increments the count of the duplicate found in the basket array. QUESTION: To make the code/logic cleaner, I wanted to call the updateCurrentMushroom function, which would be the function that would increment the count of the existing duplicate - BUT I could not figure out how to pass a mushroom object out of the checkForDuplicates function while at the same time having that function return true so that I can use it for the ternery!!!! ANY TIPS ON HOW TO DO THAT???
+// 2 - B - If the checkForDuplicates function returns false, then we run the addNewMushroom function for the mushroom that we got via the random assignment. The addNewMushroom function increases the count property on the mushroom by 1 and pushes it into the basket array. QUESTION / NOTE: Technically, this function would run only for brand new mushrooms added to the basket, so I guess we don't have to increment - but just set the count to 1????
+// NOTE: I decided to call checkForDUplicates function inside the fillBasketMagically function too - instead of just to push the mushrooms array into the basket - in order to prevent duplicates! I think it's working!!!
+// LASTLY: I finally understand - I think - why console errors lie to you!!! A previous console error gets updated with the latest value of the element we are consoling - in stead of continuing to display the value it got at the time it was initially consoled!! Ugh!!!
 
 export default { getMushrooms, getBasket, pickAMushroom };

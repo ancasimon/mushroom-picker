@@ -8,6 +8,7 @@ const mushroomShape = PropTypes.shape({
   isMagic: PropTypes.bool.isRequired,
   isPoisonous: PropTypes.bool.isRequired,
   isDeadly: PropTypes.bool.isRequired,
+  count: PropTypes.number,
 });
 
 export default { mushroomShape };
