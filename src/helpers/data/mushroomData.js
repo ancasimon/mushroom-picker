@@ -201,28 +201,7 @@ const mushrooms = [
   },
 ];
 
-let basket = [
-  {
-    id: 'mushroom19',
-    name: 'Portobello Mushrooms',
-    description: 'Portobellos are the final full-grown stage of the button mushroom\'s life. These mushrooms are much larger than cremini or button mushrooms and have a more meaty texture, but still retain a mild flavor. They have their cap fully open, exposing the dark gills underneath. Portobellos are large enough to be used as vegetarian burgers or stuffed with other ingredients, and are often baked instead of fried.',
-    imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Portobello-Mushrooms.jpg',
-    isMagic: false,
-    isPoisonous: false,
-    isDeadly: false,
-    count: 1,
-  },
-  {
-    id: 'mushroom20',
-    name: 'Cremini Mushrooms',
-    description: 'Cremini mushrooms, also called crimini mushrooms, are actually part of the same ​species as button mushrooms (Agaricus bisporus), but are a brown variation with a slightly deeper flavour. ​All button mushrooms ​used to be brown until 1926, when a mushroom farmer in Pennsylvania found a cluster of white buttons growing in his beds, which he cloned and began selling as a new variety​.',
-    imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Cremini-Mushrooms.jpg',
-    isMagic: false,
-    isPoisonous: false,
-    isDeadly: false,
-    count: 1,
-  },
-];
+let basket = [];
 
 const getMushrooms = () => mushrooms;
 
@@ -286,6 +265,21 @@ const addNewMushroom = (selectedMushroom) => {
   console.error('updated basket after adding a new mushroom', basket);
 };
 
+const checkForFullBasket = () => {
+  basket = getBasket();
+
+};
+
+const getAllRegularMushrooms = () => {
+  const regularMushrooms = [];
+  for (let i = 0; i < mushrooms.length; i += 1) {
+    if (mushrooms[i].isDeadly !== false && mushrooms[i].isPoisonous !== false && mushrooms[i].isMagic !== false) {
+      regularMushrooms.push(mushrooms[i]);
+      console.error('array of regular mushrooms!!!', regularMushrooms);
+    }
+  }
+};
+
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const selectedMushroom = mushrooms[randomNum];
@@ -298,6 +292,7 @@ const pickAMushroom = () => {
   } else {
     // basket.push(selectedMushroom);
     checkForDuplicates(selectedMushroom) ? (console.error('found a duplicate!')) : (addNewMushroom(selectedMushroom));
+    getAllRegularMushrooms();
   }
 };
 
