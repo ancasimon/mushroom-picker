@@ -192,6 +192,7 @@ const removeTwoMushrooms = () => {
   const removedMushroom1 = basket.shift();
   const removedMushroom2 = basket.shift();
   console.error('mushrooms removed', removedMushroom1, removedMushroom2);
+  alert('You just picked a poisonous mushroom! We will take the first 2 mushrooms in your basket!');
   return basket;
 };
 
