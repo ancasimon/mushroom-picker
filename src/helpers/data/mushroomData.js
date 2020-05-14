@@ -278,23 +278,31 @@ const addNewMushroom = (selectedMushroom) => {
   console.error('updated basket after adding a new mushroom', basket);
 };
 
-const getMushroomId = (mushroom) => {
-  const mushroomId = mushroom.id;
-};
+// const getMushroomId = (mushroom) => {
+//   const mushroomId = mushroom.id;
+// };
 
 const checkForFullBasket = () => {
   basket = getBasket();
   const regularMushrooms = getAllRegularMushrooms();
-  const regularMushroomsIds = Object.values(regularMushrooms);
+  const basketCheck = regularMushrooms.map((item) => {
+    const isIncluded = basket.includes((item));
+    return isIncluded;
+  });
+  const isWinner = basketCheck.every((x) => x === true);
+  if (isWinner) {
+    console.log('user won!! add animation!!');
+  }
+  // const regularMushroomsIds = Object.values(regularMushrooms);
   // Object.keys(regularMushrooms).forEach((mushroom) => {
   //   regularMushrooms[mushroom].id = mushroom;
   //   regularMushroomsIds.push(regularMushrooms[mushroom]);
   // });
-  console.error('array of ids???', regularMushroomsIds);
-  const sortedBasket = basket.sort((a, b) => ((a.id > b.id) ? 1 : -1));
-  console.error('sorted Basket', sortedBasket);
-  const sortedRegMushrooms = regularMushrooms.sort((a, b) => ((a.id > b.id) ? 1 : -1));
-  console.error('sorted reg mushrooms', sortedRegMushrooms);
+  // console.error('array of ids???', regularMushroomsIds);
+  // const sortedBasket = basket.sort((a, b) => ((a.id > b.id) ? 1 : -1));
+  // console.error('sorted Basket', sortedBasket);
+  // const sortedRegMushrooms = regularMushrooms.sort((a, b) => ((a.id > b.id) ? 1 : -1));
+  // console.error('sorted reg mushrooms', sortedRegMushrooms);
 };
 
 const pickAMushroom = () => {
