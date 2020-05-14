@@ -12,7 +12,6 @@ class Forest extends React.Component {
 
   render() {
     const { mushrooms } = this.props;
-    console.error('mushrooms coming into Forest', mushrooms);
     const buildForest = mushrooms.map((mushroom) => (
       <Mushroom key={mushroom.id} mushroom={mushroom} />
     ));
