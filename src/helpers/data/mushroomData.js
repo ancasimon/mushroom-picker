@@ -203,6 +203,8 @@ let mushrooms = [
 
 let basket = [];
 
+let lostEverything = false;
+
 const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
@@ -229,9 +231,10 @@ const removeTwoMushrooms = () => {
 };
 
 const emptyBasket = () => {
+  alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
   basket = getBasket();
   basket = [];
-  alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
+  lostEverything = true;
 };
 
 const fillBasketMagically = () => {
@@ -262,7 +265,6 @@ const checkForDuplicates = (selectedMushroom) => {
     }
   }
 };
-
 
 const addNewMushroom = (selectedMushroom) => {
   // eslint-disable-next-line no-param-reassign

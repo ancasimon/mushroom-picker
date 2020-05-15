@@ -13,6 +13,7 @@ class App extends React.Component {
     basket: [],
     mushroom: mushroomShape.mushroomShape,
     fullBasket: false,
+    lostAllMushrooms: false,
   }
   // Anca note: I will try and use a property of fullBasket to control whether the application has the fun animation or not.
 
@@ -20,7 +21,13 @@ class App extends React.Component {
     const mushrooms = mushroomData.getMushrooms();
     const basket = mushroomData.getBasket();
     const fullBasket = false;
-    this.setState({ mushrooms, basket, fullBasket });
+    const lostAllMushrooms = false;
+    this.setState({
+      mushrooms,
+      basket,
+      fullBasket,
+      lostAllMushrooms,
+    });
   }
 
   pickAMushroom = (e) => {
@@ -29,7 +36,17 @@ class App extends React.Component {
     const basket = mushroomData.getBasket();
     const fullBasket = mushroomData.checkForFullBasket();
     console.log('fullbasket variable coming from data file', fullBasket);
+    console.log('event in Appjs', e);
     this.setState({ basket, fullBasket });
+  }
+
+  checkForDeadlyMushroom = (e) => {
+    console.log('RUNNING CHECK FOR DEADLY MUS');
+    e.preventDefault();
+    mushroomData.checkForDeadlyMushroom();
+    const lostAllMushrooms = mushroomData.checkForDeadlyMushroom();
+    console.log('lostAllMush variable coming from data file', lostAllMushrooms);
+    this.setState({ lostAllMushrooms });
   }
 
   render() {
@@ -42,7 +59,16 @@ class App extends React.Component {
             <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
           )
         }
-        <button className="btn btn-dark btn-lg m-5" onClick={this.pickAMushroom}>Pick a Mushroom</button>
+        <div>
+        {
+          this.state.lostAllMushrooms ? (
+            <button className="btn btn-danger skull"><i class="fas fa-skull-crossbones"></i></button>
+          ) : (
+            <h6 className="p-3">Could be fun, could be fatal...</h6>
+          )
+        }
+        </div>
+        <button className="btn btn-dark btn-lg m-5" onClick={this.pickAMushroom, this.checkForDeadlyMushroom}>Pick a Mushroom</button>
         <div className="row">
           <div className="container">
             <Forest mushrooms={this.state.mushrooms} />
