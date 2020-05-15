@@ -36,17 +36,10 @@ class App extends React.Component {
     const basket = mushroomData.getBasket();
     const fullBasket = mushroomData.checkForFullBasket();
     console.log('fullbasket variable coming from data file', fullBasket);
+    const lostAllMushrooms = mushroomData.lostEverythingEvent();
+    console.log('lostEverything variable coming from data file', lostAllMushrooms);
     console.log('event in Appjs', e);
-    this.setState({ basket, fullBasket });
-  }
-
-  checkForDeadlyMushroom = (e) => {
-    console.log('RUNNING CHECK FOR DEADLY MUS');
-    e.preventDefault();
-    mushroomData.checkForDeadlyMushroom();
-    const lostAllMushrooms = mushroomData.checkForDeadlyMushroom();
-    console.log('lostAllMush variable coming from data file', lostAllMushrooms);
-    this.setState({ lostAllMushrooms });
+    this.setState({ basket, fullBasket, lostAllMushrooms });
   }
 
   render() {
@@ -62,13 +55,13 @@ class App extends React.Component {
         <div>
         {
           this.state.lostAllMushrooms ? (
-            <button className="btn btn-danger skull"><i class="fas fa-skull-crossbones"></i></button>
+            <button className="btn btn-danger skull"><i className="fas fa-skull-crossbones"></i></button>
           ) : (
             <h6 className="p-3">Could be fun, could be fatal...</h6>
           )
         }
         </div>
-        <button className="btn btn-dark btn-lg m-5" onClick={this.pickAMushroom, this.checkForDeadlyMushroom}>Pick a Mushroom</button>
+        <button className="btn btn-dark btn-lg m-5" onClick={this.pickAMushroom}>Pick a Mushroom</button>
         <div className="row">
           <div className="container">
             <Forest mushrooms={this.state.mushrooms} />
