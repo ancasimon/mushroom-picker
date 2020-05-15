@@ -15,12 +15,11 @@ class App extends React.Component {
     mushroom: mushroomShape.mushroomShape,
     fullBasket: false,
   }
-  // Anca note: Maybe try and use a rpoperty of fullBasket to control whether the application has the fun animation or not!!??
+  // Anca note: Maybe try and use a property of fullBasket to control whether the application has the fun animation or not!!??
 
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
     const basket = mushroomData.getBasket();
-    console.error('basket', basket);
     this.setState({ mushrooms, basket });
   }
 
