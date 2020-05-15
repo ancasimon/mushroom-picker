@@ -203,6 +203,12 @@ let mushrooms = [
 
 let basket = [];
 
+let lostEverything = false;
+
+const lostEverythingEvent = () => {
+  return lostEverything;
+};
+
 const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
@@ -229,9 +235,9 @@ const removeTwoMushrooms = () => {
 };
 
 const emptyBasket = () => {
+  alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
   basket = getBasket();
   basket = [];
-  alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
 };
 
 const fillBasketMagically = () => {
@@ -262,7 +268,6 @@ const checkForDuplicates = (selectedMushroom) => {
     }
   }
 };
-
 
 const addNewMushroom = (selectedMushroom) => {
   // eslint-disable-next-line no-param-reassign
@@ -304,13 +309,17 @@ const pickAMushroom = () => {
   const selectedMushroom = mushrooms[randomNum];
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
+    lostEverything = false;
   } else if (selectedMushroom.isDeadly === true) {
     emptyBasket();
+    lostEverything = true;
   } else if (selectedMushroom.isMagic === true) {
     fillBasketMagically();
+    lostEverything = false;
   } else {
     // Previously - I called the basket.push(selectedMushroom) funciton here - but once I added the feature to check for duplicates, the line below now does that - either updates the count if that type of mushroom already exists in the basket or the addNewMushroom function pushes a new mushroom into the basket.
     checkForDuplicates(selectedMushroom) ? (console.error('found a duplicate!')) : (addNewMushroom(selectedMushroom));
+    lostEverything = false;
   }
   checkForFullBasket();
 };
@@ -327,4 +336,5 @@ export default {
   getBasket,
   pickAMushroom,
   checkForFullBasket,
+  lostEverythingEvent,
 };
