@@ -290,12 +290,11 @@ const checkForFullBasket = () => {
   const isWinner = basketCheck.every((x) => x === true);
   console.log('is winner function', isWinner);
   console.log('basket check', basketCheck);
-  console.error('this in data file', this);
   if (isWinner) {
     console.log('user won!! add animation!!');
-    const fullBasket = true;
-    console.error('this in data file');
-    return fullBasket;
+    // ANCA NOTES: This is where I reset the fullBasket property I defined in the initial state in App.js:
+    const gotAFullBasket = true;
+    return gotAFullBasket;
   }
 };
 
@@ -322,4 +321,9 @@ const pickAMushroom = () => {
 // NOTE: I decided to call checkForDUplicates function inside the fillBasketMagically function too - instead of just to push the mushrooms array into the basket - in order to prevent duplicates! I think it's working!!!
 // LASTLY: I finally understand - I think - why console errors lie to you!!! A previous console error gets updated with the latest value of the element we are consoling - in stead of continuing to display the value it got at the time it was initially consoled!! Ugh!!!
 
-export default { getMushrooms, getBasket, pickAMushroom, checkForFullBasket };
+export default {
+  getMushrooms,
+  getBasket,
+  pickAMushroom,
+  checkForFullBasket,
+};

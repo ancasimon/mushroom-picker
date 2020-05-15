@@ -1,13 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-// import PropTypes from 'prop-types';
 import './App.scss';
 
 import mushroomData from '../helpers/data/mushroomData';
 
 import Basket from '../components/Basket/Basket';
 import Forest from '../components/Forest/Forest';
-import Reward from '../components/Reward/Reward';
 import mushroomShape from '../helpers/propz/mushroomShape';
 
 class App extends React.Component {
@@ -15,9 +12,9 @@ class App extends React.Component {
     mushrooms: [],
     basket: [],
     mushroom: mushroomShape.mushroomShape,
-    fullBasket: true,
+    fullBasket: false,
   }
-  // Anca note: Maybe try and use a property of fullBasket to control whether the application has the fun animation or not!!??
+  // Anca note: I will try and use a property of fullBasket to control whether the application has the fun animation or not.
 
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
@@ -31,7 +28,7 @@ class App extends React.Component {
     mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
     const fullBasket = mushroomData.checkForFullBasket();
-    console.log('fullbasket coming from data file', fullBasket);
+    console.log('fullbasket variable coming from data file', fullBasket);
     this.setState({ basket, fullBasket });
   }
 
@@ -45,9 +42,7 @@ class App extends React.Component {
             <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
           )
         }
-        {/* <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1> */}
-        {/* <Reward /> */}
-        <button className="btn btn-dark btn-lg m-3" onClick={this.pickAMushroom}>Pick a Mushroom</button>
+        <button className="btn btn-dark btn-lg m-5" onClick={this.pickAMushroom}>Pick a Mushroom</button>
         <div className="row">
           <div className="container">
             <Forest mushrooms={this.state.mushrooms} />
