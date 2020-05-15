@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import './App.scss';
 
 import mushroomData from '../helpers/data/mushroomData';
@@ -15,33 +14,35 @@ class App extends React.Component {
     mushroom: mushroomShape.mushroomShape,
     fullBasket: false,
   }
-  // Anca note: Maybe try and use a rpoperty of fullBasket to control whether the application has the fun animation or not!!??
+  // Anca note: I will try and use a property of fullBasket to control whether the application has the fun animation or not.
 
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
     const basket = mushroomData.getBasket();
-    console.error('basket', basket);
-    this.setState({ mushrooms, basket });
-  }
-
-  rewardFullBasket = (e) => {
-    e.preventDefault();
-    this.setState({ fullBasket: true });
+    const fullBasket = false;
+    this.setState({ mushrooms, basket, fullBasket });
   }
 
   pickAMushroom = (e) => {
     e.preventDefault();
     mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
-    this.setState({ basket });
+    const fullBasket = mushroomData.checkForFullBasket();
+    console.log('fullbasket variable coming from data file', fullBasket);
+    this.setState({ basket, fullBasket });
   }
 
   render() {
-    const fullBasket = this.state.fullBasket;
     return (
       <div className="App">
-        <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
-        <button className="btn btn-dark btn-lg m-3" onClick={this.pickAMushroom}>Pick a Mushroom</button>
+        {
+          this.state.fullBasket ? (
+            <h1 className="encounter-title p-5 mt-5 funAnimation">CONGRATULATIONS!</h1>
+          ) : (
+            <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
+          )
+        }
+        <button className="btn btn-dark btn-lg m-5" onClick={this.pickAMushroom}>Pick a Mushroom</button>
         <div className="row">
           <div className="container">
             <Forest mushrooms={this.state.mushrooms} />
