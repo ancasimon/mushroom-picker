@@ -280,6 +280,7 @@ const addNewMushroom = (selectedMushroom) => {
 const checkForFullBasket = () => {
   basket = getBasket();
   const regularMushrooms = getAllRegularMushrooms();
+  let gotAFullBasket = false;
   // ANCA NOTES: The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned bu the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.
   const basketCheck = regularMushrooms.map((item) => {
     const isIncluded = basket.includes((item));
@@ -293,9 +294,9 @@ const checkForFullBasket = () => {
   if (isWinner) {
     console.log('user won!! add animation!!');
     // ANCA NOTES: This is where I reset the fullBasket property I defined in the initial state in App.js:
-    const gotAFullBasket = true;
-    return gotAFullBasket;
+    gotAFullBasket = true;
   }
+  return gotAFullBasket;
 };
 
 const pickAMushroom = () => {
