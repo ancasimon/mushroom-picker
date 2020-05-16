@@ -15,31 +15,22 @@ class App extends React.Component {
     fullBasket: false,
     lostAllMushrooms: false,
   }
-  // Anca note: I will try and use a property of fullBasket to control whether the application has the fun animation or not.
+  // Anca note: I will use a property of fullBasket to control whether the home page has the fun animation or not.
 
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
     const basket = mushroomData.getBasket();
-    const fullBasket = false;
-    const lostAllMushrooms = false;
     this.setState({
       mushrooms,
       basket,
-      fullBasket,
-      lostAllMushrooms,
     });
   }
 
   pickAMushroom = (e) => {
     e.preventDefault();
-    mushroomData.pickAMushroom();
+    const mushroomPicker = mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
-    const fullBasket = mushroomData.checkForFullBasket();
-    console.log('fullbasket variable coming from data file', fullBasket);
-    const lostAllMushrooms = mushroomData.lostEverythingEvent();
-    console.log('lostEverything variable coming from data file', lostAllMushrooms);
-    console.log('event in Appjs', e);
-    this.setState({ basket, fullBasket, lostAllMushrooms });
+    this.setState({ basket, fullBasket: mushroomPicker.fullBasket, lostAllMushrooms: mushroomPicker.lostAllMushrooms });
   }
 
   render() {
@@ -47,7 +38,7 @@ class App extends React.Component {
       <div className="App">
         {
           this.state.fullBasket ? (
-            <h1 className="encounter-title p-5 mt-5 funAnimation">CONGRATULATIONS!</h1>
+            <h1 className="encounter-title p-5 mt-5 funAnimation">CONGRATULATIONS!<br />You found the magic mushroom!<br /><i className="fas fa-magic"></i> </h1>
           ) : (
             <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
           )
@@ -55,7 +46,7 @@ class App extends React.Component {
         <div>
         {
           this.state.lostAllMushrooms ? (
-            <button className="btn btn-danger skull skullAnimation"><i className="fas fa-skull-crossbones"></i></button>
+            <button className="btn btn-danger skull skullAnimation">Fatal mushroom!<br />Drop it, run!! <br /><i className="fas fa-skull-crossbones skullIcon"></i></button>
           ) : (
             <h6 className="p-3">Could be fun, could be fatal...</h6>
           )

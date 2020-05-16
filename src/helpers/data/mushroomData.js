@@ -203,12 +203,6 @@ let mushrooms = [
 
 let basket = [];
 
-let lostEverything = false;
-
-const lostEverythingEvent = () => {
-  return lostEverything;
-};
-
 const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
@@ -226,115 +220,103 @@ const getAllRegularMushrooms = () => {
 
 const removeTwoMushrooms = () => {
   basket = getBasket();
-  const removedMushroom1 = basket.shift();
-  const removedMushroom2 = basket.shift();
-  console.log('mush to remove', removedMushroom1, removedMushroom2);
-  // eslint-disable-next-line no-alert
-  alert('You just picked a poisonous mushroom! We will take the first 2 mushrooms in your basket!');
+  if (basket.length === 0) {
+    alert('You just picked a poisonous mushroom! No penalty since your basket is empty!')
+  } else if (basket.length === 1) {
+    const removedMushroom1 = basket.shift();
+    alert(`You just picked a poisonous mushroom! You will lose the mushroom currently in your basket: ${removedMushroom1.name}!`);
+  } else {
+    const removedMushroom1 = basket.shift();
+    const removedMushroom2 = basket.shift();
+    alert(`You just picked a poisonous mushroom! You will lose the first 2 mushrooms in your basket: ${removedMushroom1.name} & ${removedMushroom2.name}!`);
+  }
   return basket;
 };
 
 const emptyBasket = () => {
-  alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
+  // alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
   basket = getBasket();
   basket = [];
 };
 
 const fillBasketMagically = () => {
-  alert('You hit the jackpot!');
-  console.error('JACKPOT!!!!!');
+  // alert('You hit the jackpot!');
   for (let i = 0; i < mushrooms.length; i += 1) {
     if (mushrooms[i].isDeadly === false && mushrooms[i].isPoisonous === false && mushrooms[i].isMagic === false) {
-      checkForDuplicates(mushrooms[i]) ? (console.error('found a duplicate!', mushrooms[i].name)) : (addNewMushroom(mushrooms[i]));
-      // ANCA NOTES: Previously, this is where I just pushed all the mushrooms that meet the IF criteria into the basket ( basket.push(mushrooms[i]); ) but once I added the feature to check for duplicates, I chanegd the code here.
-      console.error('checking if each regular mushroom already has duplicates in the current basket');
+      checkForDuplicates(mushrooms[i]);
+      // ANCA NOTES: Previously, this is where I just pushed all the mushrooms that meet the IF criteria into the basket ( basket.push(mushrooms[i]); ) but once I added the feature to check for duplicates, I changed the code here.
     }
   }
-  console.error('full basket!!', basket);
   return basket;
 };
 
 const checkForDuplicates = (selectedMushroom) => {
   basket = getBasket();
-  console.error('sel mush in the check function', selectedMushroom);
+  // Anca Notes: This is where I check if the id of the selected mushrooms passed in to this function is the same as the id of one of the mushrooms currently in the basket - if that id is found in the basket, then we increase the count of that found mushroom by 1
   for (let i = 0; i < basket.length; i += 1) {
     if (basket[i].id === selectedMushroom.id) {
-      const currentDuplicate = basket[i];
-      console.error('duplicate we found', currentDuplicate);
-      currentDuplicate.count += 1;
-      console.error('duplicate count increased!!', basket[i].name, basket[i].count);
-      console.error('updated basked after updating count of existing mushroom - NO NEW MUSHROOMS ADDED', basket);
-      return true;
+      // alert(`You have more of the same: You now have ${basket[i].count} of the ${basket[i].name} type!`);
+      basket[i].count += 1;
+      return;
     }
   }
+  addNewMushroom(selectedMushroom);
 };
 
 const addNewMushroom = (selectedMushroom) => {
-  // eslint-disable-next-line no-param-reassign
-  selectedMushroom.count = 1;
-  basket.push(selectedMushroom);
-  console.error('new mushroom with updated count', selectedMushroom);
-  // ANCA QUESTION: I was trying to use the spread operator here to avoid the reassignment of parameter eslint error BUT when I do that - the checkForFullBasket function breaks - it is as if it is obvious somehow that the mushrooms in the basket are copies and not identical to the mushrooms array items - but I cannot tell why it thinks they are different .... TIPS ON AVOIDING THE ESLINT ERROR HERE OTHERWISE? Or on fixing this spread operator issue with the checkFoFullBasket function??
-  // const selectedMushroomCopy = { ...selectedMushroom };
-  // selectedMushroomCopy.count += 1;
-  // basket.push(selectedMushroomCopy);
-  // console.error('new mushroom with updated count', selectedMushroomCopy);
-  console.error('updated basket after adding a new mushroom', basket);
+  // Anca Notes: This is the action we take if the answer to the checkForDuplicates function is false - if the selected mushroom is not already present in the basket, then we push it into the basket here and assign it a count of 1.
+  const newMushroom = { ...selectedMushroom };
+  newMushroom.count = 1;
+  basket.push(newMushroom);
 };
 
 const checkForFullBasket = () => {
   basket = getBasket();
   const regularMushrooms = getAllRegularMushrooms();
-  let gotAFullBasket = false;
-  // ANCA NOTES: The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned bu the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.
+  // ANCA NOTES: The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned by the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.
   const basketCheck = regularMushrooms.map((item) => {
+    console.log('item in basketcheck', item);
     const isIncluded = basket.includes((item));
-    console.log('is included for each item in reg mushrooms', isIncluded);
+    console.error('is included for sel mushroom', isIncluded);
     return isIncluded;
   });
-  // ANCA NOTES: The next function below - isWinner - checks to see if every item in the array built via the .map() method in the basketCheck function is true. If .every() method returns true (so: if(isWinner)), then we run the console log.
+  console.error('basket mapped by isIncluded', basketCheck);
+  // ANCA NOTES: The next function below - isWinner - checks to see if every item in the array built via the .map() method in the basketCheck function is true.
   const isWinner = basketCheck.every((x) => x === true);
-  console.log('is winner function', isWinner);
-  console.log('basket check', basketCheck);
-  if (isWinner) {
-    console.log('user won!! add animation!!');
-    // ANCA NOTES: This is where I reset the fullBasket property I defined in the initial state in App.js:
-    gotAFullBasket = true;
-  }
-  return gotAFullBasket;
+  console.log('is winner function result', isWinner);
+  return isWinner;
 };
 
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const selectedMushroom = mushrooms[randomNum];
+  const result = { fullBasket: false, lostAllMushrooms: false };
+  console.log('mushroom id', selectedMushroom.id);
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
-    lostEverything = false;
   } else if (selectedMushroom.isDeadly === true) {
     emptyBasket();
-    lostEverything = true;
+    result.lostAllMushrooms = true;
   } else if (selectedMushroom.isMagic === true) {
     fillBasketMagically();
-    lostEverything = false;
+    result.fullBasket = true;
   } else {
     // Previously - I called the basket.push(selectedMushroom) funciton here - but once I added the feature to check for duplicates, the line below now does that - either updates the count if that type of mushroom already exists in the basket or the addNewMushroom function pushes a new mushroom into the basket.
-    checkForDuplicates(selectedMushroom) ? (console.error('found a duplicate!')) : (addNewMushroom(selectedMushroom));
-    lostEverything = false;
+    checkForDuplicates(selectedMushroom);
+    result.fullBasket = checkForFullBasket();
   }
-  checkForFullBasket();
+  return result;
 };
 
 // Anca: Notes about how I check for duplicates:
 // 1 - If the mushroom selected is not deadly/poisonous/magic, then we run the checkForDuplicates function.
 // 2 - A - If the checkForDuplicates function returns true, we leave it be and don't do anything else. Because when true, this function already increments the count of the duplicate found in the basket array. QUESTION: To make the code/logic cleaner, I wanted to call the updateCurrentMushroom function, which would be the function that would increment the count of the existing duplicate - BUT I could not figure out how to pass a mushroom object out of the checkForDuplicates function while at the same time having that function return true so that I can use it for the ternery!!!! ANY TIPS ON HOW TO DO THAT???
-// 2 - B - If the checkForDuplicates function returns false, then we run the addNewMushroom function for the mushroom that we got via the random assignment. The addNewMushroom function increases the count property on the mushroom by 1 and pushes it into the basket array. QUESTION / NOTE: Technically, this function would run only for brand new mushrooms added to the basket, so I guess we don't have to increment - but just set the count to 1????
+// 2 - B - If the checkForDuplicates function returns false, then we run the addNewMushroom function for the mushroom that we got via the random assignment. The addNewMushroom function increases the count property on the mushroom by 1 and pushes it into the basket array. 
 // NOTE: I decided to call checkForDUplicates function inside the fillBasketMagically function too - instead of just to push the mushrooms array into the basket - in order to prevent duplicates! I think it's working!!!
-// LASTLY: I finally understand - I think - why console errors lie to you!!! A previous console error gets updated with the latest value of the element we are consoling - in stead of continuing to display the value it got at the time it was initially consoled!! Ugh!!!
 
 export default {
   getMushrooms,
   getBasket,
   pickAMushroom,
   checkForFullBasket,
-  lostEverythingEvent,
 };
