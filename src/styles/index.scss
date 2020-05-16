@@ -46,7 +46,7 @@ h1, h2 {
 @keyframes stretch {
   0% {
     transform: scale(.3);
-    background-color: red;
+    background-color: darkorange;
     border-radius: 100%;
   }
   50% {
@@ -61,8 +61,25 @@ h1, h2 {
 // END ANIMATION CSS
 
 .skull {
-  width: 250px;
-  height: 250px;
-  font-size: 5em;
+  color: darkred;
+  width: 500px;
+  height: 500px;
+  font-size: 10em;
   border: solid 20px black;
+}
+
+.skullAnimation {
+  animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: grey;
+  }
+  50% {
+    background-color: red;
+  }
+  100% {
+    background-color: black;
+  }
 }

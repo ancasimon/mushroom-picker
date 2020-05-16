@@ -55,7 +55,7 @@ class App extends React.Component {
         <div>
         {
           this.state.lostAllMushrooms ? (
-            <button className="btn btn-danger skull"><i className="fas fa-skull-crossbones"></i></button>
+            <button className="btn btn-danger skull skullAnimation"><i className="fas fa-skull-crossbones"></i></button>
           ) : (
             <h6 className="p-3">Could be fun, could be fatal...</h6>
           )
