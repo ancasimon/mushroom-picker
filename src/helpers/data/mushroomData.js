@@ -273,7 +273,7 @@ const addNewMushroom = (selectedMushroom) => {
 const checkForFullBasket = () => {
   basket = getBasket();
   const regularMushrooms = getAllRegularMushrooms();
-  // ANCA NOTES: The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned bu the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.
+  // ANCA NOTES: The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned by the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.
   const basketCheck = regularMushrooms.map((item) => {
     console.log('item in basketcheck', item);
     const isIncluded = basket.includes((item));
