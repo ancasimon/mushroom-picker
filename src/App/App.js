@@ -15,7 +15,7 @@ class App extends React.Component {
     fullBasket: false,
     lostAllMushrooms: false,
   }
-  // Anca note: I will try and use a property of fullBasket to control whether the application has the fun animation or not.
+  // Anca note: I will use a property of fullBasket to control whether the home page has the fun animation or not.
 
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
@@ -35,10 +35,7 @@ class App extends React.Component {
     mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
     const fullBasket = mushroomData.checkForFullBasket();
-    console.log('fullbasket variable coming from data file', fullBasket);
     const lostAllMushrooms = mushroomData.lostEverythingEvent();
-    console.log('lostEverything variable coming from data file', lostAllMushrooms);
-    console.log('event in Appjs', e);
     this.setState({ basket, fullBasket, lostAllMushrooms });
   }
 
