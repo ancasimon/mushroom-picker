@@ -267,19 +267,14 @@ const checkForDuplicates = (selectedMushroom) => {
       return true;
     }
   }
+  return false;
 };
 
 const addNewMushroom = (selectedMushroom) => {
   // Anca Notes: This is the action we take if the answer to the checkForDuplicates function is false - if the selected mushroom is not already present in the basket, then we push it into the basket here and assign it a count of 1.
-
-  // eslint-disable-next-line no-param-reassign
-  selectedMushroom.count = 1;
-  basket.push(selectedMushroom);
-  // ANCA QUESTION: I was trying to use the spread operator here to avoid the reassignment of parameter eslint error BUT when I do that - the checkForFullBasket function breaks - it is as if it is obvious somehow that the mushrooms in the basket are copies and not identical to the mushrooms array items - but I cannot tell why it thinks they are different .... TIPS ON AVOIDING THE ESLINT ERROR HERE OTHERWISE? Or on fixing this spread operator issue with the checkFoFullBasket function??
-  // const selectedMushroomCopy = { ...selectedMushroom };
-  // selectedMushroomCopy.count += 1;
-  // basket.push(selectedMushroomCopy);
-  // console.error('new mushroom with updated count', selectedMushroomCopy);
+  const newMushroom = { ...selectedMushroom };
+  newMushroom.count = 1;
+  basket.push(newMushroom);
 };
 
 const checkForFullBasket = () => {
@@ -314,8 +309,13 @@ const pickAMushroom = () => {
     lostEverything = false;
   } else {
     // Previously - I called the basket.push(selectedMushroom) funciton here - but once I added the feature to check for duplicates, the line below now does that - either updates the count if that type of mushroom already exists in the basket or the addNewMushroom function pushes a new mushroom into the basket.
-    checkForDuplicates(selectedMushroom) ? (console.error('Found a duplicate!')) : (addNewMushroom(selectedMushroom));
+    if (checkForDuplicates(selectedMushroom) === false) {
+      console.log('check dupes false');
+      addNewMushroom(selectedMushroom);
+      console.log('added new mushroom');
+    }
     lostEverything = false;
+    console.log('returning lostEverything as false');
   }
   checkForFullBasket();
 };
