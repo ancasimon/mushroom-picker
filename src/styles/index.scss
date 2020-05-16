@@ -50,11 +50,11 @@ h1, h2 {
     border-radius: 100%;
   }
   50% {
-    background-color: orange;
+    background-color: gold;
   }
   100% {
     transform: scale(1.5);
-    background-color: yellow;
+    background-color: darkorange;
   }
 }
 
@@ -64,8 +64,12 @@ h1, h2 {
   color: darkred;
   width: 500px;
   height: 500px;
-  font-size: 10em;
+  font-size: 3em;
   border: solid 20px black;
+}
+
+.skullIcon {
+  font-size: 5em;
 }
 
 .skullAnimation {
