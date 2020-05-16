@@ -20,23 +20,17 @@ class App extends React.Component {
   componentDidMount() {
     const mushrooms = mushroomData.getMushrooms();
     const basket = mushroomData.getBasket();
-    const fullBasket = false;
-    const lostAllMushrooms = false;
     this.setState({
       mushrooms,
       basket,
-      fullBasket,
-      lostAllMushrooms,
     });
   }
 
   pickAMushroom = (e) => {
     e.preventDefault();
-    mushroomData.pickAMushroom();
+    const mushroomPicker = mushroomData.pickAMushroom();
     const basket = mushroomData.getBasket();
-    const fullBasket = mushroomData.checkForFullBasket();
-    const lostAllMushrooms = mushroomData.lostEverythingEvent();
-    this.setState({ basket, fullBasket, lostAllMushrooms });
+    this.setState({ basket, fullBasket: mushroomPicker.fullBasket, lostAllMushrooms: mushroomPicker.lostAllMushrooms });
   }
 
   render() {
@@ -44,7 +38,7 @@ class App extends React.Component {
       <div className="App">
         {
           this.state.fullBasket ? (
-            <h1 className="encounter-title p-5 mt-5 funAnimation">CONGRATULATIONS!<br />You found the magic mushroom!<br /><i class="fas fa-magic"></i> </h1>
+            <h1 className="encounter-title p-5 mt-5 funAnimation">CONGRATULATIONS!<br />You found the magic mushroom!<br /><i className="fas fa-magic"></i> </h1>
           ) : (
             <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
           )

@@ -203,14 +203,6 @@ let mushrooms = [
 
 let basket = [];
 
-let gotAFullBasket = false;
-
-let lostEverything = false;
-
-const lostEverythingEvent = () => {
-  return lostEverything;
-};
-
 const getMushrooms = () => mushrooms;
 
 const getBasket = () => basket;
@@ -251,8 +243,8 @@ const fillBasketMagically = () => {
   // alert('You hit the jackpot!');
   for (let i = 0; i < mushrooms.length; i += 1) {
     if (mushrooms[i].isDeadly === false && mushrooms[i].isPoisonous === false && mushrooms[i].isMagic === false) {
-      checkForDuplicates(mushrooms[i]) ? (console.error('found a duplicate!', mushrooms[i].name)) : (addNewMushroom(mushrooms[i]));
-      // ANCA NOTES: Previously, this is where I just pushed all the mushrooms that meet the IF criteria into the basket ( basket.push(mushrooms[i]); ) but once I added the feature to check for duplicates, I chanegd the code here.
+      checkForDuplicates(mushrooms[i]);
+      // ANCA NOTES: Previously, this is where I just pushed all the mushrooms that meet the IF criteria into the basket ( basket.push(mushrooms[i]); ) but once I added the feature to check for duplicates, I changed the code here.
     }
   }
   return basket;
@@ -263,13 +255,12 @@ const checkForDuplicates = (selectedMushroom) => {
   // Anca Notes: This is where I check if the id of the selected mushrooms passed in to this function is the same as the id of one of the mushrooms currently in the basket - if that id is found in the basket, then we increase the count of that found mushroom by 1
   for (let i = 0; i < basket.length; i += 1) {
     if (basket[i].id === selectedMushroom.id) {
-      const currentDuplicate = basket[i];
-      currentDuplicate.count += 1;
       // alert(`You have more of the same: You now have ${basket[i].count} of the ${basket[i].name} type!`);
-      return true;
+      basket[i].count += 1;
+      return;
     }
   }
-  return false;
+  addNewMushroom(selectedMushroom);
 };
 
 const addNewMushroom = (selectedMushroom) => {
@@ -277,7 +268,6 @@ const addNewMushroom = (selectedMushroom) => {
   const newMushroom = { ...selectedMushroom };
   newMushroom.count = 1;
   basket.push(newMushroom);
-  console.error('new  mush', newMushroom);
 };
 
 const checkForFullBasket = () => {
@@ -285,55 +275,48 @@ const checkForFullBasket = () => {
   const regularMushrooms = getAllRegularMushrooms();
   // ANCA NOTES: The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned bu the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.
   const basketCheck = regularMushrooms.map((item) => {
-    const isIncluded = basket.includes((item));
+    console.log('item in basketcheck', item);
+    const isIncluded = basket.includes((item.id));
     console.error('is included for sel mushroom', isIncluded);
     return isIncluded;
   });
-  // ANCA NOTES: The next function below - isWinner - checks to see if every item in the array built via the .map() method in the basketCheck function is true. If .every() method returns true (so: if(isWinner)), then we run the console log.
+  console.error('basket mapped by isIncluded', basketCheck);
+  // ANCA NOTES: The next function below - isWinner - checks to see if every item in the array built via the .map() method in the basketCheck function is true.
   const isWinner = basketCheck.every((x) => x === true);
   console.log('is winner function result', isWinner);
-  if (isWinner) {
-    // ANCA NOTES: This is where I reset the gotAFullBasket property I defined at the beginning og this function and whose value I will pass into the fullBasket object in the state in App.js:
-    gotAFullBasket = true;
-    console.log('full bask value', gotAFullBasket);
-  }
-  return gotAFullBasket;
+  return isWinner;
 };
 
 const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const selectedMushroom = mushrooms[randomNum];
+  const result = { fullBasket: false, lostAllMushrooms: false };
   console.log('mushroom id', selectedMushroom.id);
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
-    lostEverything = false;
   } else if (selectedMushroom.isDeadly === true) {
     emptyBasket();
-    lostEverything = true;
+    result.lostAllMushrooms = true;
   } else if (selectedMushroom.isMagic === true) {
     fillBasketMagically();
-    lostEverything = false;
+    result.fullBasket = true;
   } else {
     // Previously - I called the basket.push(selectedMushroom) funciton here - but once I added the feature to check for duplicates, the line below now does that - either updates the count if that type of mushroom already exists in the basket or the addNewMushroom function pushes a new mushroom into the basket.
-    if (checkForDuplicates(selectedMushroom) === false) {
-      addNewMushroom(selectedMushroom);
-    }
-    lostEverything = false;
+    checkForDuplicates(selectedMushroom);
+    result.fullBasket = checkForFullBasket();
   }
-  checkForFullBasket();
+  return result;
 };
 
 // Anca: Notes about how I check for duplicates:
 // 1 - If the mushroom selected is not deadly/poisonous/magic, then we run the checkForDuplicates function.
 // 2 - A - If the checkForDuplicates function returns true, we leave it be and don't do anything else. Because when true, this function already increments the count of the duplicate found in the basket array. QUESTION: To make the code/logic cleaner, I wanted to call the updateCurrentMushroom function, which would be the function that would increment the count of the existing duplicate - BUT I could not figure out how to pass a mushroom object out of the checkForDuplicates function while at the same time having that function return true so that I can use it for the ternery!!!! ANY TIPS ON HOW TO DO THAT???
-// 2 - B - If the checkForDuplicates function returns false, then we run the addNewMushroom function for the mushroom that we got via the random assignment. The addNewMushroom function increases the count property on the mushroom by 1 and pushes it into the basket array. QUESTION / NOTE: Technically, this function would run only for brand new mushrooms added to the basket, so I guess we don't have to increment - but just set the count to 1????
+// 2 - B - If the checkForDuplicates function returns false, then we run the addNewMushroom function for the mushroom that we got via the random assignment. The addNewMushroom function increases the count property on the mushroom by 1 and pushes it into the basket array. 
 // NOTE: I decided to call checkForDUplicates function inside the fillBasketMagically function too - instead of just to push the mushrooms array into the basket - in order to prevent duplicates! I think it's working!!!
-// LASTLY: I finally understand - I think - why console errors lie to you!!! A previous console error gets updated with the latest value of the element we are consoling - in stead of continuing to display the value it got at the time it was initially consoled!! Ugh!!!
 
 export default {
   getMushrooms,
   getBasket,
   pickAMushroom,
   checkForFullBasket,
-  lostEverythingEvent,
 };
