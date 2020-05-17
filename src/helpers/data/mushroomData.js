@@ -221,14 +221,14 @@ const getAllRegularMushrooms = () => {
 const removeTwoMushrooms = () => {
   basket = getBasket();
   if (basket.length === 0) {
-    alert('You just picked a poisonous mushroom! No penalty since your basket is empty!')
+    // alert('You just picked a poisonous mushroom! No penalty since your basket is empty!')
   } else if (basket.length === 1) {
     const removedMushroom1 = basket.shift();
-    alert(`You just picked a poisonous mushroom! You will lose the mushroom currently in your basket: ${removedMushroom1.name}!`);
+    // alert(`You just picked a poisonous mushroom! You will lose the mushroom currently in your basket: ${removedMushroom1.name}!`);
   } else {
     const removedMushroom1 = basket.shift();
     const removedMushroom2 = basket.shift();
-    alert(`You just picked a poisonous mushroom! You will lose the first 2 mushrooms in your basket: ${removedMushroom1.name} & ${removedMushroom2.name}!`);
+    // alert(`You just picked a poisonous mushroom! You will lose the first 2 mushrooms in your basket: ${removedMushroom1.name} & ${removedMushroom2.name}!`);
   }
   return basket;
 };
@@ -247,6 +247,7 @@ const fillBasketMagically = () => {
       // ANCA NOTES: Previously, this is where I just pushed all the mushrooms that meet the IF criteria into the basket ( basket.push(mushrooms[i]); ) but once I added the feature to check for duplicates, I changed the code here.
     }
   }
+  // console.log('basket after magic filling', basket);
   return basket;
 };
 
@@ -272,18 +273,31 @@ const addNewMushroom = (selectedMushroom) => {
 
 const checkForFullBasket = () => {
   basket = getBasket();
+  // console.log('basket when checking for dupes', basket);
   const regularMushrooms = getAllRegularMushrooms();
-  // ANCA NOTES: The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned by the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.
-  const basketCheck = regularMushrooms.map((item) => {
-    console.log('item in basketcheck', item);
-    const isIncluded = basket.includes((item));
-    console.error('is included for sel mushroom', isIncluded);
-    return isIncluded;
-  });
-  console.error('basket mapped by isIncluded', basketCheck);
+  // console.log('reg mushrooms', regularMushrooms);
+  // ANCA NOTES: The new logic for identifying the winning scenario is this: 1-loop over all the regular mushrooms; then 2-loop over the basket; 3-compare the ids of each item in both arrays; 4-when those ids are identical, add a property of isIncluded to the regular mushroom object and set it to true (I think it's doing this for all the objects at once - so if any of the objects fails, then all of then get a false setting here ...); 5- then we use the .every method to check each item in the regularMushrooms array - if all of them have the isIncluded property set to true, then a  new variable called isWinner gets set to true; -6 lastly, we return that property at the end of this whole function. Note: This  funciton works when the user happens to push all the regular mushrooms into the basket AND  only after the magicMushroom works its magic (because that one fills the basket - so this function is NOT the one that triggers the reward; in that case the magic function itself triggers the reward).
+  for (let i = 0; i < regularMushrooms.length; i += 1) {
+    for (let j = 0; j < basket.length; j += 1) {
+      if (regularMushrooms[i].id === basket[j].id) {
+        regularMushrooms[i].isIncluded = true;
+        // console.log(regularMushrooms[i].isIncluded);
+      }
+    }
+  }
+  const isWinner = regularMushrooms.every((x) => x.isIncluded === true);
+  console.log('isWinner', isWinner);
+// ANCA NOTES: Below is the way I initially did the check for the winning scenario below: It broke when I made some changes to how I captured and updated the count for multiple mushrooms - I assume the problem was that the objects were no longer identical (the id was the smae - but the object with the same id in the basket and the object with the same id in the mushrooms array had differne counts so they were no longer identical) -- The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned by the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.:
+  // const basketCheck = regularMushrooms.map((item) => {
+  //   console.log('item in basketcheck', item);
+  //   const isIncluded = basket.includes((item));
+  //   console.error('is included for sel mushroom', isIncluded);
+  //   return isIncluded;
+  // });
+  // console.error('basket mapped by isIncluded', basketCheck);
   // ANCA NOTES: The next function below - isWinner - checks to see if every item in the array built via the .map() method in the basketCheck function is true.
-  const isWinner = basketCheck.every((x) => x === true);
-  console.log('is winner function result', isWinner);
+  // const isWinner = basketCheck.every((x) => x === true);
+  // console.log('is winner function result', isWinner);
   return isWinner;
 };
 
@@ -291,12 +305,20 @@ const pickAMushroom = () => {
   const randomNum = Math.floor(Math.random() * mushrooms.length);
   const selectedMushroom = mushrooms[randomNum];
   const result = { fullBasket: false, lostAllMushrooms: false };
+  const regularMushrooms = getAllRegularMushrooms();
+  console.log('reg mushrooms array in pick function', regularMushrooms);
   console.log('mushroom id', selectedMushroom.id);
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
+    for (let i = 0; i < regularMushrooms.length; i += 1) {
+      regularMushrooms[i].isIncluded = false;
+    }
   } else if (selectedMushroom.isDeadly === true) {
     emptyBasket();
     result.lostAllMushrooms = true;
+    for (let i = 0; i < regularMushrooms.length; i += 1) {
+      regularMushrooms[i].isIncluded = false;
+    }
   } else if (selectedMushroom.isMagic === true) {
     fillBasketMagically();
     result.fullBasket = true;
