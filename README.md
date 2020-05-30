@@ -1,5 +1,4 @@
 # Pick-Your-Own Mushroom Encounter
-
 [MushroomPicker](https://mushroompicker-20347.web.app)
 
 ## Description
@@ -7,6 +6,8 @@ This was our first venture into React. Our Mushroom-Picker project was intended 
 
 ## Background
 Project instructions can be found [here](https://github.com/nss-nightclass-projects/exercise-vault/blob/master/REACT_mushroom_picker.md).
+
+From really starting to grasp the concepts of state and props to learning how to pass data into individual components and how to make updates as well as how to control CSS based on React component attributes to having more fun with CSS in order to meet the project requirements for highlighting the deadly mushroom selection and the full basket scenarios, this project gave me the opportunity to both learn new concepts and practice current skills. 
 
 ## Technologies & Tools
 Bootstrap, CSS, ES6 Modules, Github (for version control), HTML5, JavaScript, React, Sweetalert2 (for easily customizable pop-up alerts), Webpack
@@ -23,14 +24,17 @@ Bootstrap, CSS, ES6 Modules, Github (for version control), HTML5, JavaScript, Re
 ###### Mushroom Count for Mushrooms in Basket
 ![Poisonous Mushroom](./mushroom_images/same_mushroom.png)
 
-###### Alert when User Picks a Magic Mushroom
-![Magic Mushroom](./mushroom_images/magic_reward.png)
+###### Alert when User Gets a Full Basket
+![Magic Mushroom](./mushroom_images/full_basket.png)
 
 ###### Alert when User Picks a Deadly Mushroom 
-![Deadly Mushroom](./mushroom_images/deadly_reward.png)
+![Deadly Mushroom](./mushroom_images/deadly.png)
 
 ###### Alert when User Picks a Poisonous Mushroom
 ![Poisonous Mushroom](./mushroom_images/poisonous.png)
+
+###### Alert when User Picks the Same Mushroom Again
+![Poisonous Mushroom](./mushroom_images/multiple.png)
 
 ## Features
 1. User can see all the mushrooms available in the forest.
