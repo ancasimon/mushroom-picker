@@ -9,7 +9,7 @@ This was our first venture into React. Our Mushroom-Picker project was intended 
 Project instructions can be found [here](https://github.com/nss-nightclass-projects/exercise-vault/blob/master/REACT_mushroom_picker.md).
 
 ## Technologies & Tools
-Bootstrap, CSS, ES6 Modules, Github (for version control), HTML5, JavaScript, React, Webpack
+Bootstrap, CSS, ES6 Modules, Github (for version control), HTML5, JavaScript, React, Sweetalert2 (for easily customizable pop-up alerts), Webpack
 
 
 ## Screenshots
@@ -36,7 +36,9 @@ Bootstrap, CSS, ES6 Modules, Github (for version control), HTML5, JavaScript, Re
 1. User can see all the mushrooms available in the forest.
 1. User can pick a mushroom, which adds a random mushroom to the user's basket. 
 1. User can see the number of mushrooms for each type currently in their basket. 
-1. If the user picks a poisonous mushroom, the first two mushrooms in the basket get removed. 
+1. User can see all the mushroom selected as they get added to his basket.
+1. If the user happens to select a mushroom type that is already available in the basket, the count for that mushroom type gets increased by 1 and the user sees an alert about that change.
+1. If the user picks a poisonous mushroom, the first two mushrooms in the basket get removed. If there's only one mushroom in the basket, then it gets removed. Otherwise, if the basket is empty, user just gets a warning that he happened upon a poisonous mushroom. 
 1. If the user picks the deadly mushroom, then all the mushrooms in the basket get removed.
 1. If a user picks a magic mushroom, then their basket gets filled instantaneously with one of each of the regular mushrooms (non-magic, non-poisonous, and non-deadly). 
 1. When the user's basket has at least one of each of the regular mushrooms (non-magic, non-poisonous, and non-deadly), then they get a fun Congratulations! flashing animation. 

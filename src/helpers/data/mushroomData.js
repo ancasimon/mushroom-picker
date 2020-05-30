@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 let mushrooms = [
   {
     id: 'mushroom1',
@@ -121,8 +123,8 @@ let mushrooms = [
   },
   {
     id: 'mushroom13',
-    name: 'Chicken Of The Woods Mushrooms',
-    description: 'Chicken Of The Woods is more scientifically called Laetiporus which means \'with bright pores.\' This mushroom grows in clusters on the side of trees and is a beautiful orange color. Normally deep orange in the middle with a lighter orange color around the edges. As you might expect, it gets its name because many people think it tastes like chicken. In fact, you can cook it many of the same ways that you\'d prepare chicken. This makes it a​ great meat substitute for vegetarians.',
+    name: 'Chicken of The Woods Mushrooms',
+    description: 'Chicken of The Woods is more scientifically called Laetiporus which means \'with bright pores.\' This mushroom grows in clusters on the side of trees and is a beautiful orange color. Normally deep orange in the middle with a lighter orange color around the edges. As you might expect, it gets its name because many people think it tastes like chicken. In fact, you can cook it many of the same ways that you\'d prepare chicken. This makes it a​ great meat substitute for vegetarians.',
     imgUrl: 'https://grocycle.com/wp-content/uploads/2019/04/Chicken-Of-The-Woods-Mushrooms.jpg',
     isMagic: false,
     isPoisonous: false,
@@ -221,33 +223,30 @@ const getAllRegularMushrooms = () => {
 const removeTwoMushrooms = () => {
   basket = getBasket();
   if (basket.length === 0) {
-    // alert('You just picked a poisonous mushroom! No penalty since your basket is empty!')
+    Swal.fire('You just picked a poisonous mushroom! No penalty right now since your basket is empty - but watch out next time!');
   } else if (basket.length === 1) {
     const removedMushroom1 = basket.shift();
-    // alert(`You just picked a poisonous mushroom! You will lose the mushroom currently in your basket: ${removedMushroom1.name}!`);
+    Swal.fire(`You just picked a poisonous mushroom! You lose the mushroom currently in your basket: ${removedMushroom1.name}!`);
   } else {
     const removedMushroom1 = basket.shift();
     const removedMushroom2 = basket.shift();
-    // alert(`You just picked a poisonous mushroom! You will lose the first 2 mushrooms in your basket: ${removedMushroom1.name} & ${removedMushroom2.name}!`);
+    Swal.fire(`You just picked a poisonous mushroom! You lose the first 2 mushrooms in your basket: ${removedMushroom1.name} & ${removedMushroom2.name}!`);
   }
   return basket;
 };
 
 const emptyBasket = () => {
-  // alert('Deadly mushroom alert! You just lost all your other yummy mushrooms!')
   basket = getBasket();
   basket = [];
 };
 
 const fillBasketMagically = () => {
-  // alert('You hit the jackpot!');
   for (let i = 0; i < mushrooms.length; i += 1) {
     if (mushrooms[i].isDeadly === false && mushrooms[i].isPoisonous === false && mushrooms[i].isMagic === false) {
       checkForDuplicates(mushrooms[i]);
       // ANCA NOTES: Previously, this is where I just pushed all the mushrooms that meet the IF criteria into the basket ( basket.push(mushrooms[i]); ) but once I added the feature to check for duplicates, I changed the code here.
     }
   }
-  // console.log('basket after magic filling', basket);
   return basket;
 };
 
@@ -256,8 +255,8 @@ const checkForDuplicates = (selectedMushroom) => {
   // Anca Notes: This is where I check if the id of the selected mushrooms passed in to this function is the same as the id of one of the mushrooms currently in the basket - if that id is found in the basket, then we increase the count of that found mushroom by 1
   for (let i = 0; i < basket.length; i += 1) {
     if (basket[i].id === selectedMushroom.id) {
-      // alert(`You have more of the same: You now have ${basket[i].count} of the ${basket[i].name} type!`);
       basket[i].count += 1;
+      Swal.fire(`You have more of the same: You now have ${basket[i].count} of the ${basket[i].name} type!`);
       return;
     }
   }
@@ -273,21 +272,17 @@ const addNewMushroom = (selectedMushroom) => {
 
 const checkForFullBasket = () => {
   basket = getBasket();
-  // console.log('basket when checking for dupes', basket);
   const regularMushrooms = getAllRegularMushrooms();
-  // console.log('reg mushrooms', regularMushrooms);
   // ANCA NOTES: The new logic for identifying the winning scenario is this: 1-loop over all the regular mushrooms; then 2-loop over the basket; 3-compare the ids of each item in both arrays; 4-when those ids are identical, add a property of isIncluded to the regular mushroom object and set it to true (I think it's doing this for all the objects at once - so if any of the objects fails, then all of then get a false setting here ...); 5- then we use the .every method to check each item in the regularMushrooms array - if all of them have the isIncluded property set to true, then a  new variable called isWinner gets set to true; -6 lastly, we return that property at the end of this whole function. Note: This  funciton works when the user happens to push all the regular mushrooms into the basket AND  only after the magicMushroom works its magic (because that one fills the basket - so this function is NOT the one that triggers the reward; in that case the magic function itself triggers the reward).
   for (let i = 0; i < regularMushrooms.length; i += 1) {
     for (let j = 0; j < basket.length; j += 1) {
       if (regularMushrooms[i].id === basket[j].id) {
         regularMushrooms[i].isIncluded = true;
-        // console.log(regularMushrooms[i].isIncluded);
       }
     }
   }
   const isWinner = regularMushrooms.every((x) => x.isIncluded === true);
-  console.log('isWinner', isWinner);
-// ANCA NOTES: Below is the way I initially did the check for the winning scenario below: It broke when I made some changes to how I captured and updated the count for multiple mushrooms - I assume the problem was that the objects were no longer identical (the id was the smae - but the object with the same id in the basket and the object with the same id in the mushrooms array had differne counts so they were no longer identical) -- The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned by the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.:
+  // ANCA NOTES: Below is the way I initially did the check for the winning scenario below: It broke when I made some changes to how I captured and updated the count for multiple mushrooms - I assume the problem was that the objects were no longer identical (the id was the smae - but the object with the same id in the basket and the object with the same id in the mushrooms array had differne counts so they were no longer identical) -- The next function below - basketCheck - loops over all the regular mushrooms and picks each item and then runs the isIncluded function which checks to see if the selected mushroom item is included in the basket. The .includes() method returns a true or false value, which is then returned by the function. Then, the basketCheck function creates a new array (the .map method does that) with the results of each check - so an array of true and false results.:
   // const basketCheck = regularMushrooms.map((item) => {
   //   console.log('item in basketcheck', item);
   //   const isIncluded = basket.includes((item));
@@ -306,8 +301,6 @@ const pickAMushroom = () => {
   const selectedMushroom = mushrooms[randomNum];
   const result = { fullBasket: false, lostAllMushrooms: false };
   const regularMushrooms = getAllRegularMushrooms();
-  console.log('reg mushrooms array in pick function', regularMushrooms);
-  console.log('mushroom id', selectedMushroom.id);
   if (selectedMushroom.isPoisonous === true) {
     removeTwoMushrooms();
     for (let i = 0; i < regularMushrooms.length; i += 1) {
@@ -333,7 +326,7 @@ const pickAMushroom = () => {
 // Anca: Notes about how I check for duplicates:
 // 1 - If the mushroom selected is not deadly/poisonous/magic, then we run the checkForDuplicates function.
 // 2 - A - If the checkForDuplicates function returns true, we leave it be and don't do anything else. Because when true, this function already increments the count of the duplicate found in the basket array. QUESTION: To make the code/logic cleaner, I wanted to call the updateCurrentMushroom function, which would be the function that would increment the count of the existing duplicate - BUT I could not figure out how to pass a mushroom object out of the checkForDuplicates function while at the same time having that function return true so that I can use it for the ternery!!!! ANY TIPS ON HOW TO DO THAT???
-// 2 - B - If the checkForDuplicates function returns false, then we run the addNewMushroom function for the mushroom that we got via the random assignment. The addNewMushroom function increases the count property on the mushroom by 1 and pushes it into the basket array. 
+// 2 - B - If the checkForDuplicates function returns false, then we run the addNewMushroom function for the mushroom that we got via the random assignment. The addNewMushroom function increases the count property on the mushroom by 1 and pushes it into the basket array.
 // NOTE: I decided to call checkForDUplicates function inside the fillBasketMagically function too - instead of just to push the mushrooms array into the basket - in order to prevent duplicates! I think it's working!!!
 
 export default {
