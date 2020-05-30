@@ -1,5 +1,7 @@
 # Pick-Your-Own Mushroom Encounter
 
+[MushroomPicker](https://mushroompicker-20347.web.app)
+
 ## Description
 This was our first venture into React. Our Mushroom-Picker project was intended to give us the opportunity to familiarize ourselves with using state and props in React, understand how data gets transferred across files, and learn how to manipulate the display in the component files. 
 
@@ -7,7 +9,7 @@ This was our first venture into React. Our Mushroom-Picker project was intended 
 Project instructions can be found [here](https://github.com/nss-nightclass-projects/exercise-vault/blob/master/REACT_mushroom_picker.md).
 
 ## Technologies & Tools
-Bootstrap, CSS, ES6 Modules, Github (for version control), HTML, JavaScript (vanilla), React, Webpack
+Bootstrap, CSS, ES6 Modules, Github (for version control), HTML5, JavaScript, React, Webpack
 
 
 ## Screenshots
@@ -45,3 +47,6 @@ Bootstrap, CSS, ES6 Modules, Github (for version control), HTML, JavaScript (van
 1. Make sure you have http-server installed via npm. If not, get it [here](https://www.npmjs.com/package/http-server).
 1. On your command line, run `hs -p 9999`.
 1. In your browser, navigate to `http://localhost:9999`.
+
+## Firebase Deployment
+This project has been deployed with Firebase. You can find it here: https://mushroompicker-20347.web.app.
