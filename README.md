@@ -1,8 +1,8 @@
-# Pick-Your-Own Mushroom Encounter
+# 'Fun-guy' Adventures
 [MushroomPicker](https://mushroompicker-20347.web.app)
 
 ## Description
-This was our first venture into React. Our Mushroom-Picker project was intended to give us the opportunity to familiarize ourselves with using state and props in React, understand how data gets transferred across files, and learn how to manipulate the display in the component files. 
+Our first venture into React, this app lets you add randomly-selected mushrooms to your basket, suffer the consequences when you happen upon a deadly or poisonous mushrooms, and rejoice when you find the magic mushroom and fill your basket! 
 
 ## Background
 Project instructions can be found [here](https://github.com/nss-nightclass-projects/exercise-vault/blob/master/REACT_mushroom_picker.md).

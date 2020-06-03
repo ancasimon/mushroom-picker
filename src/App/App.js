@@ -40,7 +40,7 @@ class App extends React.Component {
           this.state.fullBasket ? (
             <h1 className="encounter-title p-5 mt-5 funAnimation">CONGRATULATIONS!<br />You have found all the available gourmet mushrooms!<br /><i className="fas fa-magic"></i> </h1>
           ) : (
-            <h1 className="encounter-title p-3">Pick-Your-Own Mushroom Encounter</h1>
+            <h1 className="encounter-title p-3">'Fun-guy' Adventures</h1>
           )
         }
         <div>
