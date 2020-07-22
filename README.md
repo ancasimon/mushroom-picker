@@ -9,7 +9,7 @@ Project instructions can be found [here](https://github.com/nss-nightclass-proje
 
 From really starting to grasp the concepts of state and props to learning how to pass data into individual components and how to make updates as well as how to control CSS based on React component attributes to having more fun with CSS in order to meet the project requirements for highlighting the deadly mushroom selection and the full basket scenarios, this project gave me the opportunity to both learn new concepts and practice current skills. 
 
-## Technologies & Tools
+## Tools & Technologies
 Bootstrap, CSS, ES6 Modules, Github (for version control), HTML5, JavaScript, React, Sweetalert2 (for easily customizable pop-up alerts), Webpack
 
 
